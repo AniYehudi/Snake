@@ -1,0 +1,40 @@
+create table _User(
+UserId int primary key identity(1, 1),
+Username varchar(30) unique,
+Password varchar(30),
+Games_played int,
+)
+
+create table Snake(
+SnakeId int primary key identity(1, 1),
+Name varchar(30) unique,
+Form varchar(30),
+Color varchar(30),
+)
+
+create table Map(
+MapId int primary key identity(1, 1),
+Name varchar(30) unique,
+Realm varchar(30),
+)
+
+create table Game(
+GameId int primary key identity(1, 1),
+UserId int foreign key references _User(UserId) on delete cascade on update cascade,
+SnakeId int foreign key references Snake(SnakeId) on delete cascade on update cascade,
+MapID int foreign key references Map(MapId) on delete cascade on update cascade,
+Level int,
+Score int,
+Data date
+)
+
+insert into Map values('Spring', 'Earth'), ('Desert', 'Mars'), ('Ice', 'Enceladus');
+
+insert into Snake values('Grape', 'Square', 'Violet'), ('Metal', 'Circle', 'Metalic'), ('Sunny', 'Elipse', 'Yellow');
+
+
+alter table Snake
+drop column Form
+
+update Snake set Name = 'Sky', Color = 'Blue' where SnakeId = 2
+update Snake set Name = 'Metal', Color = 'Metalic' where SnakeId = 3
